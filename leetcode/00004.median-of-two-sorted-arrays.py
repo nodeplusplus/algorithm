@@ -39,7 +39,8 @@ class Solution:
 
         return t[-1]
 
-
+# Algorithm: Binary search
+# ---
 # Other solution here
 # https://www.youtube.com/watch?v=LPFhl65R7ww
 # Better explanation
