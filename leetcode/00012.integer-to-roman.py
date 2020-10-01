@@ -36,14 +36,8 @@ class Solution:
 
 
 tests = [
-    # (4, 'IV'),
-    # (9, 'IX'),
-    # (58, 'LVIII'),
     (1994, 'MCMXCIV'),
-
-
 ]
-
 
 for A,  r in tests:
     a = Solution().intToRoman(A)
