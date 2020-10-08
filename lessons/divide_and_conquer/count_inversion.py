@@ -40,6 +40,6 @@ tests = [
 for A, r in tests:
     _A, a = count_inversion(A)
     if a != r:
-        print(f"{A} -> {a} # {r}")
+        print(f"\033[91m{A} -> {a} # {r}")
     else:
-        print(f"{A} -> OK")
+        print(f"\033[92m{A} -> OK")
