@@ -12,13 +12,14 @@ class Solution:
 
         def backtrack(items: List[int], candidates: List[int], remain: int):
             if sum(items) >= target or remain <= 0 or not len(candidates):
-                if sum(items) == target:
-                    ans.append(sorted(items))
+                i = sorted(items)
+                if sum(i) == target and i not in ans:
+                    ans.append(i)
                 return
 
             if remain >= candidates[0]:
                 backtrack([*items,  candidates[0]],
-                          candidates, remain-candidates[0])
+                          candidates[1:], remain-candidates[0])
 
             return backtrack(items, candidates[1:], remain)
 
@@ -27,11 +28,8 @@ class Solution:
 
 
 tests = [
-    ([[2, 3, 5], 8], [[2, 2, 2, 2], [2, 3, 3], [3, 5]]),
-    # ([[2, 3, 6, 7], 7], [[2, 2, 3], [7]]),
-    # ([[2], 1], []),
-    # ([[1], 1], [[1]]),
-    # ([[1], 2], [[1, 1]])
+    # ([[10, 1, 2, 7, 6, 1, 5], 8], [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]),
+    ([[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 27], [])
 ]
 
 for A,  r in tests:
