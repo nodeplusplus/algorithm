@@ -1,5 +1,6 @@
 from typing import List
-import itertools
+from itertools import permutations
+from collections import Counter
 
 
 # class Solution:
@@ -21,19 +22,46 @@ import itertools
 #         backtrack(nums, 0, len(nums)-1)
 #         return sorted(ans)
 
-# Magic here
-class Solution:  # DFS
-    def permute(self, nums):
-        res = []
-        self.dfs(nums, [], res)
-        return res
+# # Magic here
+# class Solution:  # DFS
+#     def permute(self, nums):
+#         res = []
+#         self.dfs(nums, [], res)
+#         return res
 
-    def dfs(self, nums, path, res):
-        if not nums:
-            res.append(path)
-            # return # backtracking
-        for i in range(len(nums)):
-            self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+#     def dfs(self, nums, path, res):
+#         if not nums:
+#             res.append(path)
+#             # return # backtracking
+#         for i in range(len(nums)):
+#             self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
+
+
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        results = []
+
+        def backtrack(comb, counter):
+            if len(comb) == len(nums):
+                # make a deep copy of the resulting permutation,
+                # since the permutation would be backtracked later.
+                results.append(list(comb))
+                return
+
+            for num in counter:
+                if counter[num] > 0:
+                    # add this number into the current combination
+                    comb.append(num)
+                    counter[num] -= 1
+                    # continue the exploration
+                    backtrack(comb, counter)
+                    # revert the choice for the next exploration
+                    comb.pop()
+                    counter[num] += 1
+
+        backtrack([], Counter(nums))
+
+        return results
 
 
 tests = [
@@ -48,7 +76,7 @@ tests = [
 
 for A in tests:
     a = Solution().permute(A)
-    r = [list(_r) for _r in list(itertools.permutations(A))]
+    r = [list(_r) for _r in list(permutations(A))]
     if a != r:
         print(f"\033[91m -> {a} # {r}")
     else:
