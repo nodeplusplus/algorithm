@@ -2,29 +2,43 @@ from typing import List
 import itertools
 
 
-class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) == 1:
-            return [nums]
+# class Solution:
+#     def permute(self, nums: List[int]) -> List[List[int]]:
+#         if len(nums) == 1:
+#             return [nums]
 
-        ans = []
+#         ans = []
 
-        def backtrack(a, l, r):
-            if l == r:
-                if a not in ans:
-                    ans.append(a)
-            else:
-                for i in range(l, r+1):
-                    a[l], a[i] = a[i], a[l]
-                    backtrack([*a], l+1, r)
-                    a[l], a[i] = a[i], a[l]  # backtrack
-        backtrack(nums, 0, len(nums)-1)
-        return sorted(ans)
+#         def backtrack(a, l, r):
+#             if l == r:
+#                 if a not in ans:
+#                     ans.append(a)
+#             else:
+#                 for i in range(l, r+1):
+#                     a[l], a[i] = a[i], a[l]
+#                     backtrack([*a], l+1, r)
+#                     a[l], a[i] = a[i], a[l]  # backtrack
+#         backtrack(nums, 0, len(nums)-1)
+#         return sorted(ans)
+
+# Magic here
+class Solution:  # DFS
+    def permute(self, nums):
+        res = []
+        self.dfs(nums, [], res)
+        return res
+
+    def dfs(self, nums, path, res):
+        if not nums:
+            res.append(path)
+            # return # backtracking
+        for i in range(len(nums)):
+            self.dfs(nums[:i]+nums[i+1:], path+[nums[i]], res)
 
 
 tests = [
     [1, 2, 3],
-    # [1, 2, 3, 4],
+    [1, 2, 3, 4],
 ]
 
 # 1 2 3
